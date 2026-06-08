@@ -53,3 +53,89 @@ body, html {
     background-position: center;
     background-repeat: no-repeat;
 }
+/* --- ESTILOS PARA LA SECCIÓN DREAMTOPIA --- */
+
+.contenedor-dreamtopia {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #050505; /* Fondo oscuro liso, sin imagen */
+    padding: 100px 40px 40px 40px;
+    gap: 30px;
+}
+
+/* Formato del bloque de texto en el centro */
+.texto-central {
+    flex: 1;
+    max-width: 600px;
+    text-align: center;
+    color: #e0e0e0;
+    line-height: 1.6;
+    font-size: 16px;
+    margin: 0 auto;
+}
+
+.texto-central h2 {
+    color: #00ff00; /* Verde neón para el título */
+    letter-spacing: 5px;
+    margin-bottom: 30px;
+    font-size: 32px;
+    text-shadow: 0 0 8px rgba(0, 255, 0, 0.4);
+}
+
+.texto-central p {
+    margin-bottom: 20px;
+}
+
+/* Resalte especial para la pregunta final */
+.pregunta-misterio {
+    margin-top: 40px;
+    padding: 15px;
+    border-top: 1px dashed #333;
+    border-bottom: 1px dashed #333;
+}
+
+.pregunta-misterio p {
+    color: #ff0055; /* Un tono rojizo/rosa misterioso para la pregunta del Cap 3 */
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 0;
+}
+
+/* Configuración de las imágenes de los lados */
+.imagen-lateral {
+    width: 250px; /* Ajusta el ancho de las imágenes a tu gusto */
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.imagen-lateral img {
+    width: 100%;
+    height: auto;
+    border: 2px solid #222;
+    border-radius: 4px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+    transition: transform 0.3s ease;
+}
+
+/* Efecto visual al pasar el mouse sobre las fotos del lore */
+.imagen-lateral img:hover {
+    transform: scale(1.03);
+    border-color: #00ff00;
+}
+
+/* Adaptación para celulares (Pone las imágenes abajo o arriba si la pantalla es chica) */
+@media (max-width: 768px) {
+    .contenedor-dreamtopia {
+        flex-direction: column;
+        padding-top: 120px;
+    }
+    .imagen-lateral {
+        width: 150px;
+    }
+    .izq { order: 2; }
+    .texto-central { order: 1; }
+    .der { order: 3; }
+}
