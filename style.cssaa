@@ -156,21 +156,4 @@ body, html {
     
     .imagen-lateral {
         position: relative;
-        top: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        width: 85%;
-        margin: 20px auto;
-    }
-    
-    .imagen-lateral.izq { 
-        order: 1; 
-    }
-    .texto-central { 
-        order: 2; 
-        margin: 30px auto;
-    }
-    .imagen-lateral.der { 
-        order: 3; 
-    }
-}
+        top: 0 !import
