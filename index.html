@@ -1,19 +1,29 @@
-/* Centrar el título de forma estética sobre la imagen */
-.overlay-texto {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    background: rgba(0, 0, 0, 0.5); /* Sombra negra suave de fondo */
-    padding: 20px;
-    border-radius: 5px;
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Municipio del Octarion</title>
+    <!-- Esta línea de abajo es la que hace la magia y conecta tu diseño -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-.overlay-texto h1 {
-    color: #ffffff;
-    font-size: 28px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-}
+    <!-- Barra de navegación superior -->
+    <header class="navbar">
+        <nav>
+            <a href="#inicio" class="nav-link active">Inicio</a>
+            <a href="#registros" class="nav-link">CRY</a>
+            <a href="#dreamtopia" class="nav-link">Dreamtopia</a>
+        </nav>
+    </header>
+
+    <!-- Contenedor principal de la pantalla -->
+    <main class="pantalla-completa">
+        <div class="overlay-texto">
+            <h1>MUNICIPIO DEL OCTARION</h1>
+        </div>
+    </main>
+
+</body>
+</html>
