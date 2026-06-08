@@ -1,0 +1,176 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+body, html {
+    height: 100%;
+    background-color: #000;
+}
+
+body, html {
+    overflow-y: auto !important; 
+    height: auto;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.navbar nav a {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 20px;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+}
+
+.navbar nav a:hover, .navbar nav a.active {
+    opacity: 1;
+    color: #00ff00;
+    text-shadow: 0 0 10px #00ff00;
+}
+
+.pantalla-completa {
+    height: 100vh;
+    width: 100vw;
+    background-image: url('https://lh3.googleusercontent.com/d/1JAQ5M5XK3vnYZlKlyTL7eeqzPY-Q_hsI'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.overlay-texto {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.overlay-texto h1 {
+    color: #ffffff;
+    font-size: 28px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.contenedor-dreamtopia {
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #050505;
+    padding: 140px 20px 80px 20px;
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.texto-central {
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    color: #e0e0e0;
+    line-height: 1.9;
+    font-size: 16px;
+    margin: 0 auto;
+    z-index: 5;
+    position: relative;
+}
+
+.texto-central h2 {
+    color: #00ff00;
+    letter-spacing: 5px;
+    margin-bottom: 45px;
+    font-size: 36px;
+    text-shadow: 0 0 8px rgba(0, 255, 0, 0.4);
+}
+
+.texto-central p {
+    margin-bottom: 25px;
+    text-shadow: 1px 1px 2px #000;
+}
+
+.pregunta-misterio {
+    margin-top: 60px;
+    padding: 20px;
+    border-top: 1px dashed #333;
+    border-bottom: 1px dashed #333;
+}
+
+.pregunta-misterio p {
+    color: #ff0055;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.imagen-lateral {
+    position: absolute;
+    top: 140px;
+    width: 400px;
+    z-index: 2;
+}
+
+.imagen-lateral.izq {
+    left: 20px;
+}
+
+.imagen-lateral.der {
+    right: 20px;
+}
+
+.imagen-lateral img {
+    width: 100%;
+    height: auto;
+    background: transparent; 
+    box-shadow: none; 
+    filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.6));
+}
+
+@media (max-width: 1100px) {
+    .contenedor-dreamtopia {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 100px;
+    }
+    
+    .imagen-lateral {
+        position: relative;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 85%;
+        margin: 20px auto;
+    }
+    
+    .imagen-lateral.izq { 
+        order: 1; 
+    }
+    .texto-central { 
+        order: 2; 
+        margin: 30px auto;
+    }
+    .imagen-lateral.der { 
+        order: 3; 
+    }
+}
