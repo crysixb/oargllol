@@ -55,54 +55,7 @@ body, html {
 }
 /* --- ESTILOS PARA LA SECCIÓN DREAMTOPIA --- */
 
-.contenedor-dreamtopia {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #050505; /* Fondo oscuro liso, sin imagen */
-    padding: 100px 40px 40px 40px;
-    gap: 30px;
-}
-
-/* Formato del bloque de texto en el centro */
-.texto-central {
-    flex: 1;
-    max-width: 600px;
-    text-align: center;
-    color: #e0e0e0;
-    line-height: 1.6;
-    font-size: 16px;
-    margin: 0 auto;
-}
-
-.texto-central h2 {
-    color: #00ff00; /* Verde neón para el título */
-    letter-spacing: 5px;
-    margin-bottom: 30px;
-    font-size: 32px;
-    text-shadow: 0 0 8px rgba(0, 255, 0, 0.4);
-}
-
-.texto-central p {
-    margin-bottom: 20px;
-}
-
-/* Resalte especial para la pregunta final */
-.pregunta-misterio {
-    margin-top: 40px;
-    padding: 15px;
-    border-top: 1px dashed #333;
-    border-bottom: 1px dashed #333;
-}
-
-.pregunta-misterio p {
-    color: #ff0055; /* Un tono rojizo/rosa misterioso para la pregunta del Cap 3 */
-    font-weight: bold;
-    letter-spacing: 1px;
-    margin-bottom: 0;
-}
-
+.
 /* Configuración de las imágenes de los lados */
 .imagen-lateral {
     width: 250px; /* Ajusta el ancho de las imágenes a tu gusto */
@@ -134,6 +87,104 @@ body, html {
     }
     .imagen-lateral {
         width: 150px;
+    }
+    .izq { order: 2; }
+    .texto-central { order: 1; }
+    .der { order: 3; }
+}
+/* --- NUEVA CONFIGURACIÓN PARA LIBERAR EL SCROLL --- */
+
+/* Permitir que esta página en específico sí se desplace hacia abajo */
+body, html {
+    overflow-y: auto !important; 
+    height: auto;
+}
+
+.contenedor-dreamtopia {
+    display: flex;
+    justify-content: center; /* Centra el bloque de contenido */
+    min-height: 100vh;
+    background-color: #050505; /* Fondo oscuro liso */
+    padding: 120px 20px 60px 20px; /* Espacio arriba para que no tape la barra */
+    position: relative;
+}
+
+/* Formato del texto central (ahora es el que manda el scroll) */
+.texto-central {
+    width: 100%;
+    max-width: 550px; /* Reducimos un poco para que no choque con los dibujos */
+    text-align: center;
+    color: #e0e0e0;
+    line-height: 1.8;
+    font-size: 16px;
+    margin: 0 auto;
+    z-index: 2;
+}
+
+.texto-central h2 {
+    color: #00ff00; /* Verde neón */
+    letter-spacing: 5px;
+    margin-bottom: 40px;
+    font-size: 32px;
+    text-shadow: 0 0 8px rgba(0, 255, 0, 0.4);
+}
+
+.texto-central p {
+    margin-bottom: 25px;
+}
+
+.pregunta-misterio {
+    margin-top: 50px;
+    padding: 20px;
+    border-top: 1px dashed #333;
+    border-bottom: 1px dashed #333;
+}
+
+.pregunta-misterio p {
+    color: #ff0055;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* --- MAGIA PARA LAS IMÁGENES LATERALES --- */
+
+.imagen-lateral {
+    position: fixed; /* Hace que se queden fijas en la pantalla mientras bajas el texto */
+    top: 55%; /* Centradas verticalmente respecto al monitor */
+    transform: translateY(-50%);
+    width: 280px; /* Tamaño ideal para que se aprecien los detalles */
+    z-index: 1;
+}
+
+/* Ubicación exacta en los extremos de la pantalla */
+.imagen-lateral.izq {
+    left: 40px;
+}
+
+.imagen-lateral.der {
+    right: 40px;
+}
+
+.imagen-lateral img {
+    width: 100%;
+    height: auto;
+    border: 1px solid #1a1a1a;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+/* Diseño adaptativo: si se abre en celular, oculta los lados para que no aplasten el texto */
+@media (max-width: 1024px) {
+    .imagen-lateral {
+        position: relative;
+        top: 0;
+        transform: none;
+        width: 80%;
+        margin: 20px auto;
+        display: block;
+    }
+    .contenedor-dreamtopia {
+        flex-direction: column;
     }
     .izq { order: 2; }
     .texto-central { order: 1; }
