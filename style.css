@@ -100,6 +100,66 @@ body, html {
     height: auto;
 }
 
+
+
+.pregunta-misterio p {
+    color: #ff0055;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* --- MAGIA PARA LAS IMÁGENES LATERALES --- */
+
+.imagen-lateral {
+    position: fixed; /* Hace que se queden fijas en la pantalla mientras bajas el texto */
+    top: 55%; /* Centradas verticalmente respecto al monitor */
+    transform: translateY(-50%);
+    width: 280px; /* Tamaño ideal para que se aprecien los detalles */
+    z-index: 1;
+}
+
+/* Ubicación exacta en los extremos de la pantalla */
+.imagen-lateral.izq {
+    left: 40px;
+}
+
+.imagen-lateral.der {
+    right: 40px;
+}
+
+.imagen-lateral img {
+    width: 100%;
+    height: auto;
+    border: 1px solid #1a1a1a;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+/* Diseño adaptativo: si se abre en celular, oculta los lados para que no aplasten el texto */
+@media (max-width: 1024px) {
+    .imagen-lateral {
+        position: relative;
+        top: 0;
+        transform: none;
+        width: 80%;
+        margin: 20px auto;
+        display: block;
+    }
+    .contenedor-dreamtopia {
+        flex-direction: column;
+    }
+    .izq { order: 2; }
+    .texto-central { order: 1; }
+    .der { order: 3; }
+}
+/* --- NUEVA CONFIGURACIÓN PARA LIBERAR EL SCROLL --- */
+
+/* Permitir que esta página en específico sí se desplace hacia abajo */
+body, html {
+    overflow-y: auto !important; 
+    height: auto;
+}
+
 .contenedor-dreamtopia {
     display: flex;
     justify-content: center; /* Centra el bloque de contenido */
