@@ -66,48 +66,19 @@
             margin-bottom: 30px;
             text-shadow: 0 0 8px rgba(255, 0, 85, 0.4);
         }
-        .lista-ciudadanos {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            text-align: left;
-        }
-        .tarjeta-ciudadano {
-            display: flex;
-            align-items: center;
-            background: #0a0a0a;
-            border: 1px solid #151515;
-            padding: 15px 20px;
+        .contenedor-encriptado {
+            width: 100%;
+            height: 450px;
+            border: 1px solid #222;
             border-radius: 6px;
-            gap: 20px;
+            overflow: hidden;
+            background: #fff;
+            filter: invert(0.92) dashed hue-rotate(130deg) contrast(1.2);
         }
-        .icono-estado {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
-            border-radius: 4px;
-        }
-        .datos-ciudadano {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-        .id-registro {
-            color: #ff0055;
-            font-size: 12px;
-            letter-spacing: 1px;
-            font-family: monospace;
-        }
-        .nombre-ciudadano {
-            color: #ffffff;
-            font-size: 16px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-        .cargando {
-            color: #555;
-            font-style: italic;
-            letter-spacing: 2px;
+        .iframe-historial {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
     </style>
 </head>
@@ -136,56 +107,11 @@
 
         <div class="bloque-historial">
             <h2>[ ARCHIVOS DE ALMAS AFILIADAS ]</h2>
-            <div id="historial-contenedor" class="lista-ciudadanos">
-                <p class="cargando">Accediendo a la base de datos civil...</p>
+            <div class="contenedor-encriptado">
+                <iframe class="iframe-historial" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRA64h2FcOCGMvpwyMNSewbcFyPSYcX7ZcuSwDBBYw75-Ho9Us9DVudkDPT0h4zIZ6-r1dbotMSXAel/pubhtml?gid=941010130&amp;single=true&amp;widget=true&amp;headers=false&amp;chrome=false"></iframe>
             </div>
         </div>
     </div>
-
-    <script>
-        const SHEET_ID = '1mExspHwCdsvGjFWyJDg9qFL9rOBScdMquAi6n8Oo2fc';
-        const GID = '941010130';
-        const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID}`;
-
-        fetch(url)
-            .then(res => res.text())
-            .then(csvText => {
-                const lines = csvText.split('\n');
-                const contenedor = document.getElementById('historial-contenedor');
-                contenedor.innerHTML = '';
-
-                for (let i = 1; i < lines.length; i++) {
-                    const row = lines[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-                    if (row.length < 4) continue;
-
-                    const nombre = row[0].replace(/^"|"$/g, '').trim();
-                    const registro = row[1].replace(/^"|"$/g, '').trim();
-                    const iconoUrl = row[3].replace(/^"|"$/g, '').trim();
-
-                    if (!nombre && !registro) continue;
-
-                    const tarjeta = document.createElement('div');
-                    tarjeta.className = 'tarjeta-citizen';
-                    tarjeta.className = 'tarjeta-ciudadano';
-
-                    tarjeta.innerHTML = `
-                        <img src="${iconoUrl}" alt="Estado" class="icono-estado" onerror="this.style.display='none'">
-                        <div class="datos-ciudadano">
-                            <span class="id-registro">REG: ${registro}</span>
-                            <span class="nombre-ciudadano">${nombre}</span>
-                        </div>
-                    `;
-                    contenedor.appendChild(tarjeta);
-                }
-
-                if (contenedor.children.length === 0) {
-                    contenedor.innerHTML = '<p class="cargando">No hay registros civiles activos.</p>';
-                }
-            })
-            .catch(err => {
-                document.getElementById('historial-contenedor').innerHTML = '<p class="cargando">Error de conexión con la base de datos civil.</p>';
-            });
-    </script>
 
 </body>
 </html>
