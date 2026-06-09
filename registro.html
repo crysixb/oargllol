@@ -3,26 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acta 002: Registro de Ciudadanos - Municipio de Octarion</title>
+    <title>Terminal de Registro - Municipio de Octarion</title>
     <link rel="stylesheet" href="style.css">
     <style>
         body {
             background-color: #050505;
             overflow-y: auto !important;
             padding-top: 120px;
+            padding-bottom: 60px;
         }
         .contenedor-registro {
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px;
             text-align: center;
         }
         .contenedor-registro h1 {
             color: #00ff00;
             letter-spacing: 5px;
-            font-size: 32px;
-            margin-bottom: 20px;
+            font-size: 28px;
+            margin-bottom: 25px;
             text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
         }
         .aviso-oficial {
@@ -30,37 +31,49 @@
             font-size: 14px;
             margin-bottom: 40px;
             line-height: 1.6;
+            text-transform: uppercase;
         }
         .aviso-oficial b {
             color: #ff0055;
         }
-        .iframe-formulario {
+        .seccion-interactiva {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            align-items: center;
+        }
+        .bloque-formulario {
             width: 100%;
             max-width: 640px;
-            height: 800px;
-            margin: 0 auto;
-            border: none;
+            background: #0a0a0a;
+            border: 1px solid #111;
+            padding: 10px;
             border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.05);
         }
-        .contenedor-historial {
-            margin-top: 60px;
-            text-align: center;
+        .iframe-formulario {
+            width: 100%;
+            height: 700px;
+            border: none;
+            background: transparent;
         }
-        .contenedor-historial h2 {
+        .bloque-historial {
+            width: 100%;
+            max-width: 750px;
+        }
+        .bloque-historial h2 {
             color: #ff0055;
-            font-size: 24px;
+            font-size: 22px;
             letter-spacing: 3px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-shadow: 0 0 8px rgba(255, 0, 85, 0.4);
         }
         .iframe-historial {
             width: 100%;
-            max-width: 700px;
-            height: 400px;
-            border: 1px solid #222;
-            border-radius: 4px;
-            background: #111;
+            height: 450px;
+            border: 1px solid #1a1a1a;
+            border-radius: 6px;
+            background: #0f0f0f;
         }
     </style>
 </head>
@@ -76,22 +89,30 @@
     </header>
 
     <div class="contenedor-registro">
-        <h1>[SISTEMA DE REGISTRO OBITUARIO DE OCTARION]</h1>
+        <h1>[ SISTEMA CENTRAL DE CIUDADANÍA - MUNICIPIO DE OCTARION ]</h1>
         
         <div class="aviso-oficial">
-            <p>Toda entidad biológica o espectral dentro del Municipio debe ingresar sus credenciales.</p>
-            <p>Los vivos serán asignados al sector de <b>Reserva de Sueño</b>; las bajas físicas serán transferidas de inmediato al <b>Frente de Infantería Militar</b>.</p>
+            <p>CONTRATO OBLIGATORIO DE IDENTIFICACIÓN CIVIL.</p>
+            <p>EL ALISTAMIENTO DEFINE SU ROL DENTRO DE LOS LÍMITES GEOGRÁFICOS DE ESTE MUNICIPIO.</p>
+            <p>LOS DATOS DE ENLACE DE RED (CORREO) PERMANECERÁN PROTEGIDOS POR EL DEPARTAMENTO DE LOGÍSTICA SOBERANA.</p>
         </div>
 
-        <!-- REEMPLAZA ESTE SRC POR TU LINK DE INSERCIÓN DE GOOGLE FORMS -->
-        <iframe class="iframe-formulario" src="https://docs.google.com/forms/d/e/1FAIpQLSfWqf-N-S6m-l3uO7xNre79BvY_REMPLAZAME/viewform?embedded=true">Cargando...</iframe>
+        <div class="seccion-interactiva">
+            
+            <div class="bloque-formulario">
+                <!-- REEMPLAZA ESTE ENLACE POR EL SRC DE TU FORMULARIO GOOGLE FORMS CUANDO LO TENGAS LISTO -->
+                <iframe class="iframe-formulario" src="https://docs.google.com/forms/d/e/1FAIpQLSfWqf-N-S6m-l3uO7xNre79BvY_REMPLAZAME/viewform?embedded=true">Cargando...</iframe>
+            </div>
 
-        <div class="contenedor-historial">
-            <h2>HISTORIAL DE ALMAS REGISTRADAS</h2>
-            <!-- REEMPLAZA ESTE SRC POR TU LINK DE PUBLICACIÓN EN LA WEB DE GOOGLE SHEETS -->
-            <iframe class="iframe-historial" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vREMPLAZAME/pubhtml?widget=true&amp;headers=false"></iframe>
+            <div class="bloque-historial">
+                <h2>[ ARCHIVOS DE ALMAS AFILIADAS ]</h2>
+                <!-- ENLACE ACTUALIZADO AL HISTORIAL PÚBLICO CORRECTO -->
+                <iframe class="iframe-historial" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRA64h2FcOCGMvpwyMNSewbcFyPSYcX7ZcuSwDBBYw75-Ho9Us9DVudkDPT0h4zIZ6-r1dbotMSXAel/pubhtml?gid=941010130&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
+            </div>
+
         </div>
     </div>
 
 </body>
 </html>
+    
