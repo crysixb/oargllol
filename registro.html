@@ -33,47 +33,81 @@
             line-height: 1.6;
             text-transform: uppercase;
         }
-        .aviso-oficial b {
-            color: #ff0055;
-        }
-        .seccion-interactiva {
-            display: flex;
-            flex-direction: column;
-            gap: 50px;
-            align-items: center;
-        }
-        .bloque-formulario {
-            width: 100%;
-            max-width: 640px;
-            background: #0a0a0a;
-            border: 1px solid #111;
-            padding: 10px;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.05);
-        }
-        .iframe-formulario {
-            width: 100%;
-            height: 700px;
-            border: none;
+        .boton-registro {
+            display: inline-block;
             background: transparent;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            padding: 15px 40px;
+            font-size: 18px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 4px;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin-bottom: 60px;
+        }
+        .boton-registro:hover {
+            background: #00ff00;
+            color: #050505;
+            box-shadow: 0 0 25px rgba(0, 255, 0, 0.6);
         }
         .bloque-historial {
             width: 100%;
             max-width: 750px;
+            margin: 0 auto;
         }
         .bloque-historial h2 {
             color: #ff0055;
             font-size: 22px;
             letter-spacing: 3px;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             text-shadow: 0 0 8px rgba(255, 0, 85, 0.4);
         }
-        .iframe-historial {
-            width: 100%;
-            height: 450px;
-            border: 1px solid #1a1a1a;
+        .lista-ciudadanos {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            text-align: left;
+        }
+        .tarjeta-ciudadano {
+            display: flex;
+            align-items: center;
+            background: #0a0a0a;
+            border: 1px solid #151515;
+            padding: 15px 20px;
             border-radius: 6px;
-            background: #0f0f0f;
+            gap: 20px;
+        }
+        .icono-estado {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+        .datos-ciudadano {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .id-registro {
+            color: #ff0055;
+            font-size: 12px;
+            letter-spacing: 1px;
+            font-family: monospace;
+        }
+        .nombre-ciudadano {
+            color: #ffffff;
+            font-size: 16px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .cargando {
+            color: #555;
+            font-style: italic;
+            letter-spacing: 2px;
         }
     </style>
 </head>
@@ -94,22 +128,64 @@
         <div class="aviso-oficial">
             <p>CONTRATO OBLIGATORIO DE IDENTIFICACIÓN CIVIL.</p>
             <p>EL ALISTAMIENTO DEFINE SU ROL DENTRO DE LOS LÍMITES GEOGRÁFICOS DE ESTE MUNICIPIO.</p>
-            <p>LOS DATOS DE ENLACE DE RED (CORREO) PERMANECERÁN PROTEGIDOS POR EL DEPARTAMENTO DE LOGÍSTICA SOBERANA.</p>
         </div>
 
-        <div class="seccion-interactiva">
-            
-            <div class="bloque-formulario">
-                <iframe class="iframe-formulario" src="https://docs.google.com/forms/d/e/1FAIpQLSenqbNB5ipqA2R2jv-eeiCFld-fMT-k8E_K4VZGzvBrqIOPhQ/viewform?embedded=true">Cargando...</iframe>
-            </div>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSenqbNB5ipqA2R2jv-eeiCFld-fMT-k8E_K4VZGzvBrqIOPhQ/viewform" target="_blank" class="boton-registro">
+            [ INICIAR ALISTAMIENTO ]
+        </a>
 
-            <div class="bloque-historial">
-                <h2>[ ARCHIVOS DE ALMAS AFILIADAS ]</h2>
-                <iframe class="iframe-historial" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRA64h2FcOCGMvpwyMNSewbcFyPSYcX7ZcuSwDBBYw75-Ho9Us9DVudkDPT0h4zIZ6-r1dbotMSXAel/pubhtml?gid=941010130&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
+        <div class="bloque-historial">
+            <h2>[ ARCHIVOS DE ALMAS AFILIADAS ]</h2>
+            <div id="historial-contenedor" class="lista-ciudadanos">
+                <p class="cargando">Accediendo a la base de datos civil...</p>
             </div>
-
         </div>
     </div>
+
+    <script>
+        const SHEET_ID = '1mExspHwCdsvGjFWyJDg9qFL9rOBScdMquAi6n8Oo2fc';
+        const GID = '941010130';
+        const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=${GID}`;
+
+        fetch(url)
+            .then(res => res.text())
+            .then(data => {
+                const jsonText = data.match(/google\.visualization\.Query\.setResponse\(([\s\S\s]*)\);/)[1];
+                const jsonObj = JSON.parse(jsonText);
+                const rows = jsonObj.table.rows;
+                const contenedor = document.getElementById('historial-contenedor');
+                contenedor.innerHTML = '';
+
+                rows.forEach((row, index) => {
+                    if (index === 0) return;
+                    
+                    const nombre = row.c[0] ? row.c[0].v : '';
+                    const registro = row.c[1] ? row.c[1].v : '';
+                    const iconoUrl = row.c[3] ? row.c[3].v : '';
+
+                    if (!nombre && !registro) return;
+
+                    const tarjeta = document.createElement('div');
+                    tarjeta.className = 'tarjeta-ciudadano';
+
+                    tarjeta.innerHTML = `
+                        <img src="${iconoUrl}" alt="Estado" class="icono-estado" onerror="this.style.display='none'">
+                        <div class="datos-ciudadano">
+                            <span class="id-registro">REG: ${registro}</span>
+                            <span class="nombre-ciudadano">${nombre}</span>
+                        </div>
+                    `;
+                    contenedor.appendChild(tarjeta);
+                });
+
+                if(contenedor.children.length === 0) {
+                    contenedor.innerHTML = '<p class="cargando">No hay registros civiles activos.</p>';
+                }
+            })
+            .catch(err => {
+                document.getElementById('historial-contenedor').innerHTML = '<p class="cargando">Error de conexión con la base de datos civil.</p>';
+            });
+    </script>
 
 </body>
 </html>
