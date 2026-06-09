@@ -3,25 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sección Oculta - Octarion</title>
+    <title>Cine de Octarion - Capítulos</title>
     <link rel="stylesheet" href="style.css">
     <style>
         body {
-            background-color: #550000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            background-color: #300000;
+            overflow-y: auto !important;
+            padding-top: 120px;
+            padding-bottom: 60px;
         }
-        .mensaje-temporal {
+
+        .contenedor-cine {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
             text-align: center;
-            color: #fff;
         }
-        .mensaje-temporal h1 {
-            font-size: 40px;
-            letter-spacing: 5px;
-            margin-bottom: 20px;
-            text-shadow: 0 0 15px #000;
+
+        .contenedor-cine h1 {
+            color: #ffffff;
+            font-size: 36px;
+            letter-spacing: 6px;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            text-shadow: 0 0 15px #000000;
+        }
+
+        .cuadricula-posters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            justify-content: center;
+            align-items: start;
+        }
+
+        .bloque-capitulo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .enlace-poster {
+            text-decoration: none;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .poster-pelicula {
+            width: 100%;
+            height: auto;
+            border: 4px solid #111111;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .enlace-poster:hover .poster-pelicula {
+            transform: scale(1.04);
+            border-color: #ff0000;
+            box-shadow: 0 15px 30px rgba(255, 0, 0, 0.3);
+        }
+
+        .poster-bloqueado {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border: 4px dashed #222222;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            filter: grayscale(40%);
+        }
+
+        .info-capitulo {
+            margin-top: 20px;
+            color: #ffffff;
+            text-shadow: 1px 1px 4px #000000;
+        }
+
+        .info-capitulo h3 {
+            font-size: 18px;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .info-capitulo p {
+            font-size: 13px;
+            color: #ccaaaa;
+            letter-spacing: 1px;
+        }
+
+        .info-capitulo .proximamente {
+            color: #ff0055;
+            font-weight: bold;
+            font-size: 15px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: pulso 2s infinite ease-in-out;
+        }
+
+        @keyframes pulso {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; text-shadow: 0 0 10px #ff0055; }
+            100% { opacity: 0.5; }
         }
     </style>
 </head>
@@ -36,10 +120,44 @@
         </nav>
     </header>
 
-    <div class="mensaje-temporal">
-        <h1>[SECCIÓN EN DESARROLLO]</h1>
-        <p>Has accedido a través del cartel de la máquina. Próximamente habrá más contenido aquí.</p>
-    </div>
+    <main class="contenedor-cine">
+        <h1>[ REGISTROS DE PROYECCIÓN ]</h1>
+
+        <div class="cuadricula-posters">
+
+            <!-- CAPÍTULO 1 -->
+            <div class="bloque-capitulo">
+                <a href="https://youtu.be/DjLMSAaHqkg?si=QG6cJ42opOh6iR7E" target="_blank" class="enlace-poster">
+                    <img src="https://lh3.googleusercontent.com/d/1HmcuLzO6zfRQcStVQANlmuwWuR9K8Rif" alt="Póster Capítulo 1" class="poster-pelicula">
+                </a>
+                <div class="info-capitulo">
+                    <h3>CAPÍTULO 1</h3>
+                    <p>Publicado: 14 Oct 2024</p>
+                </div>
+            </div>
+
+            <!-- CAPÍTULO 2 -->
+            <div class="bloque-capitulo">
+                <a href="https://youtu.be/Fkn7VXQlHY0?si=1BzzHZhMcNqWUYza" target="_blank" class="enlace-poster">
+                    <img src="https://lh3.googleusercontent.com/d/1VzS8lTP8vWLu9p6jYAtc6gtfr7o0bzpL" alt="Póster Capítulo 2" class="poster-pelicula">
+                </a>
+                <div class="info-capitulo">
+                    <h3>CAPÍTULO 2</h3>
+                    <p>Publicado: 21 Dic 2024</p>
+                </div>
+            </div>
+
+            <!-- CAPÍTULO 3 (PRÓXIMAMENTE) -->
+            <div class="bloque-capitulo">
+                <img src="https://lh3.googleusercontent.com/d/1LfdabA8pGoLfWNEeD1bB42EMcSxU8f9T" alt="Póster Capítulo 3" class="poster-bloqueado">
+                <div class="info-capitulo">
+                    <h3>CAPÍTULO 3</h3>
+                    <p class="proximamente">Próximamente</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
 
 </body>
 </html>
