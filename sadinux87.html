@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transmisión Local - IcyTv</title>
+    <title>Terminal - Sadinux87</title>
     <link rel="stylesheet" href="style.css">
     <style>
         body {
-            background-color: #030303;
+            background-color: #020202;
             margin: 0;
             padding: 0;
             display: flex;
@@ -18,81 +18,51 @@
             font-family: monospace;
         }
 
-        .contenedor-tv {
+        .contenedor-sadinux {
             text-align: center;
-            position: relative;
+            width: 100%;
+            max-width: 800px;
             padding: 20px;
         }
 
-        .marco-pantalla {
-            position: relative;
-            display: inline-block;
+        .interfaz-monitor {
             background: #000000;
-            border: 4px solid #1a1a1a;
-            border-radius: 10px;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.05);
-            padding: 15px;
-            max-width: 90%;
+            border: 2px solid #222222;
+            border-radius: 6px;
+            padding: 10px;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.9);
+            display: inline-block;
+            max-width: 100%;
         }
 
-        .gif-tv {
-            max-width: 550px;
-            width: 100%;
+        .imagen-sadinux {
+            max-width: 100%;
             height: auto;
             display: block;
-            border-radius: 4px;
-            filter: brightness(0.9) contrast(1.1);
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.9);
+            border-radius: 2px;
         }
 
-        .intermitencia {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.01);
-            pointer-events: none;
-            animation: ruido 4s infinite;
-            border-radius: 10px;
-        }
-
-        .subtexto-senal {
-            margin-top: 25px;
-            color: #444444;
-            font-size: 13px;
-            letter-spacing: 4px;
+        .logs-sistema {
+            margin-top: 20px;
+            color: #ff0055;
+            font-size: 12px;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            animation: pulso-texto 3s infinite ease-in-out;
-        }
-
-        @keyframes ruido {
-            0% { opacity: 0.3; }
-            5% { opacity: 0.5; }
-            6% { opacity: 0.1; }
-            12% { opacity: 0.4; }
-            13% { opacity: 0.2; }
-            30% { opacity: 0.3; }
-            35% { opacity: 0.8; }
-            36% { opacity: 0.2; }
-            100% { opacity: 0.3; }
-        }
-
-        @keyframes pulso-texto {
-            0% { opacity: 0.4; color: #333333; }
-            50% { opacity: 1; color: #555555; text-shadow: 0 0 5px rgba(255,255,255,0.05); }
-            100% { opacity: 0.4; color: #333333; }
+            text-align: left;
+            padding-left: 10px;
         }
     </style>
 </head>
 <body>
 
-    <main class="contenedor-tv">
-        <div class="marco-pantalla">
-            <img src="icytv.gif" alt="Señal IcyTv" class="gif-tv">
-            <div class="intermitencia"></div>
+    <main class="contenedor-sadinux">
+        <div class="interfaz-monitor">
+            <img src="https://lh3.googleusercontent.com/d/1M2wNiIiNC2cFxy_Kpj0fT01aPtCaw-yW" alt="Sistema Sadinux87" class="imagen-sadinux">
         </div>
-        <p class="subtexto-senal">[ TRANSMISIÓN EN RESERVA - ESPERANDO SEÑAL DE RED ]</p>
+        <div class="logs-sistema">
+            <p>> ACCESSING CORE_DIR/SADINUX87...</p>
+            <p>> STATUS: UNLOCKED_WORKSPACE</p>
+        </div>
     </main>
 
 </body>
