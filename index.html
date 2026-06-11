@@ -3,32 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Municipio del Octarion - Inicio</title>
+    <title>Menú Principal - Octarion</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #000000;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px 0;
+            text-align: center;
+            z-index: 1000;
+        }
+
+        .nav-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 18px;
+            margin: 0 25px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #cccccc;
+        }
+
+        .contenedor-menu {
+            position: relative;
+            width: 100%;
+            max-width: 1024px;
+            height: auto;
+            aspect-ratio: 1024 / 768;
+        }
+
+        .imagen-fondo {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: contain;
+        }
+
+        .zona-interactiva {
+            position: absolute;
+            cursor: pointer;
+            background: rgba(255, 0, 0, 0); 
+            transition: background 0.3s ease;
+        }
+
+        /* 1. MÁQUINA ARCADE (PANTALLA AZUL) */
+        .zona-arcade {
+            top: 54%;
+            left: 64%;
+            width: 16%;
+            height: 14%;
+        }
+
+        /* 2. ESCRITORIO (TECLADO Y MOUSE - ABAJO A LA DERECHA) */
+        .zona-escritorio {
+            top: 71%;
+            left: 78%;
+            width: 22%;
+            height: 29%;
+        }
+
+        /* 3. GORRO CON CUERNOS (AL LADO DE LA MÁQUINA) */
+        .zona-gorro {
+            top: 66%;
+            left: 81%;
+            width: 4%;
+            height: 5%;
+        }
+
+        /* 4. CARTEL MAPA CIRCULAR (PARED IZQUIERDA) */
+        .zona-mapa {
+            top: 20%;
+            left: 1%;
+            width: 15%;
+            height: 26%;
+        }
+
+        /* 5. PUERTA DE MADERA */
+        .zona-puerta {
+            top: 21%;
+            left: 17%;
+            width: 14%;
+            height: 48%;
+        }
+    </style>
 </head>
 <body>
 
     <header class="navbar">
         <nav>
-            <a href="index.html" class="nav-link active">Inicio</a>
-            <a href="cry.html" class="nav-link">CRY</a>
+            <a href="index.html" class="nav-link">Inicio</a>
             <a href="dreamtopia.html" class="nav-link">Dreamtopia</a>
-            <a href="registro.html" class="nav-link">Registro</a>
+            <a href="https://acggoods.com/store/cryshops" target="_blank" class="nav-link">Merch</a>
         </nav>
     </header>
 
-    <main class="contenedor-mapa">
-        <div class="desplazamiento-celular">
-            <div class="mapa-interactivo">
-                <img src="https://lh3.googleusercontent.com/d/1aVXKnnau_23w7lmFni5XMzOHcsJHB02H" alt="Octarion Habitación" class="imagen-fondo-mapa">
+    <main class="contenedor-menu">
+        <img src="https://lh3.googleusercontent.com/d/1aVXKnnau_23w7lmFni5XMzOHcsJHB02H" alt="Menú Octarion" class="imagen-fondo">
 
-                <!-- BOTÓN 1: Cartel rosa que dice DREAMTOPIA arriba de la máquina -->
-                <a href="seccion-roja.html" class="zona-click cartel-dreamtopia" title="Acceder a la sección oculta"></a>
-
-                <!-- BOTÓN 2: Pantalla/Ranura de la máquina (Registro) -->
-                <a href="registro.html" class="zona-click maquina-registro" title="Registrarse en el Municipio"></a>
-            </div>
-        </div>
+        <a href="dreamtopia.html" class="zona-interactiva zona-arcade" title="Dreamtopia"></a>
+        <a href="sadinux87.html" class="zona-interactiva zona-escritorio" title="Sadinux87"></a>
+        <a href="marrie.html" class="zona-interactiva zona-gorro" title="Marrie"></a>
+        <a href="mapa.html" class="zona-interactiva zona-mapa" title="Mapa"></a>
+        <a href="icytv.html" class="zona-interactiva zona-puerta" title="IcyTv"></a>
     </main>
 
 </body>
