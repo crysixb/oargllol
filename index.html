@@ -64,7 +64,7 @@
             transition: background 0.3s ease;
         }
 
-        /* 1. MÁQUINA ARCADE (PANTALLA AZUL) */
+        /* 1. MÁQUINA ARCADE (PANTALLA AZUL) -> LLEVA AL REGISTRO CIVIL */
         .zona-arcade {
             top: 54%;
             left: 64%;
@@ -72,7 +72,15 @@
             height: 14%;
         }
 
-        /* 2. ESCRITORIO (TECLADO Y MOUSE - ABAJO A LA DERECHA) */
+        /* 2. CARTEL DE DREAMTOPIA (ARRIBA DE LA MÁQUINA) -> LLEVA A LA SALA ROJA */
+        .zona-cartel-dreamtopia {
+            top: 31%;
+            left: 64%;
+            width: 25%;
+            height: 10%;
+        }
+
+        /* 3. ESCRITORIO (TECLADO Y MOUSE - ABAJO A LA DERECHA) -> SADINUX87 */
         .zona-escritorio {
             top: 71%;
             left: 78%;
@@ -80,7 +88,7 @@
             height: 29%;
         }
 
-        /* 3. GORRO CON CUERNOS (AL LADO DE LA MÁQUINA) */
+        /* 4. GORRO CON CUERNOS (AL LADO DE LA MÁQUINA) -> MARRIE */
         .zona-gorro {
             top: 66%;
             left: 81%;
@@ -88,15 +96,15 @@
             height: 5%;
         }
 
-        /* 4. CARTEL MAPA CIRCULAR (PARED IZQUIERDA) */
+        /* 5. CARTEL DEL MAPA BLANCO Y NEGRO -> MAPA */
         .zona-mapa {
-            top: 20%;
+            top: 48%;
             left: 1%;
             width: 15%;
-            height: 26%;
+            height: 15%;
         }
 
-        /* 5. PUERTA DE MADERA */
+        /* 6. PUERTA DE MADERA -> ICYTV */
         .zona-puerta {
             top: 21%;
             left: 17%;
@@ -116,9 +124,10 @@
     </header>
 
     <main class="contenedor-menu">
-        <img src="https://lh3.googleusercontent.com/d/1aVXKnnau_23w7lmFni5XMzOHcsJHB02H" alt="Menú Octarion" class="imagen-fondo">
+        <img src="menu.jpg" alt="Menú Octarion" class="imagen-fondo">
 
-        <a href="dreamtopia.html" class="zona-interactiva zona-arcade" title="Dreamtopia"></a>
+        <a href="registro.html" class="zona-interactiva zona-arcade" title="Ver Registros Civiles"></a>
+        <a href="sala-roja.html" class="zona-interactiva zona-cartel-dreamtopia" title="Entrar a la Sala Roja"></a>
         <a href="sadinux87.html" class="zona-interactiva zona-escritorio" title="Sadinux87"></a>
         <a href="marrie.html" class="zona-interactiva zona-gorro" title="Marrie"></a>
         <a href="mapa.html" class="zona-interactiva zona-mapa" title="Mapa"></a>
