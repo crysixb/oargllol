@@ -10,11 +10,12 @@
             background-color: #000000;
             margin: 0;
             padding: 0;
+     
+            overflow: auto; 
+            font-family: monospace;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            height: 100vh;
-            overflow: hidden;
         }
 
         .navbar {
@@ -22,10 +23,11 @@
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9);
             padding: 20px 0;
             text-align: center;
             z-index: 1000;
+            border-bottom: 1px solid #111;
         }
 
         .nav-link {
@@ -35,81 +37,83 @@
             margin: 0 25px;
             letter-spacing: 3px;
             text-transform: uppercase;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
-        .nav-link:hover {
-            color: #cccccc;
+        .nav-link:hover, .nav-link:active {
+            color: #ffff00;
+            text-shadow: 0 0 10px rgba(255, 255, 0, 0.6);
         }
 
         .contenedor-menu {
             position: relative;
-            width: 100%;
-            max-width: 1024px;
-            height: auto;
-            aspect-ratio: 1024 / 768;
+            width: 1024px;
+            height: 768px;
+            margin-top: 100px;
+            flex-shrink: 0;
         }
 
         .imagen-fondo {
             width: 100%;
             height: 100%;
             display: block;
-            object-fit: contain;
         }
 
         .zona-interactiva {
             position: absolute;
             cursor: pointer;
-            background: rgba(255, 0, 0, 0); 
+            background: rgba(255, 0, 0, 0); /*YOUR SECRET NO TAME CRY IS OUT*/
             transition: background 0.3s ease;
         }
 
-        /* 1. MÁQUINA ARCADE (PANTALLA AZUL) -> LLEVA AL REGISTRO CIVIL */
-        .zona-arcade {
-            top: 54%;
-            left: 64%;
-            width: 16%;
-            height: 14%;
+    
+        .zona-1-dreamtopia {
+            top: 23%;
+            left: 63%;
+            width: 27%;
+            height: 9%;
         }
 
-        /* 2. CARTEL DE DREAMTOPIA (ARRIBA DE LA MÁQUINA) -> SECCION-ROJA.HTML */
-        .zona-cartel-dreamtopia {
-            top: 31%;
-            left: 64%;
-            width: 25%;
-            height: 10%;
-        }
-
-        /* 3. ESCRITORIO (TECLADO Y MOUSE - ABAJO A LA DERECHA) -> SADINUX87 */
-        .zona-escritorio {
-            top: 71%;
-            left: 78%;
+        .zona-2-registro {
+            top: 33%;
+            left: 63%;
             width: 22%;
-            height: 29%;
+            height: 39%;
         }
 
-        /* 4. GORRO CON CUERNOS (AL LADO DE LA MÁQUINA) -> MARRIE */
-        .zona-gorro {
-            top: 66%;
-            left: 81%;
-            width: 4%;
-            height: 5%;
+        .zona-3-marrie {
+            top: 68%;
+            left: 88%;
+            width: 3%;
+            height: 4%;
         }
 
-        /* 5. CARTEL DEL MAPA BLANCO Y NEGRO -> MAPA */
-        .zona-mapa {
-            top: 48%;
-            left: 1%;
-            width: 15%;
-            height: 15%;
+        .zona-4-sadinux {
+            top: 73%;
+            left: 86%;
+            width: 14%;
+            height: 27%;
         }
 
-        /* 6. PUERTA DE MADERA -> ICYTV */
-        .zona-puerta {
-            top: 21%;
+        .zona-5-char {
+            top: 22%;
+            left: 37%;
+            width: 23%;
+            height: 11%;
+        }
+
+        .zona-6-icytv {
+            top: 22%;
             left: 17%;
             width: 14%;
             height: 48%;
+        }
+
+        .zona-7-mapa {
+            top: 21%;
+            left: 0.5%;
+            width: 16%;
+            height: 26%;
         }
     </style>
 </head>
@@ -124,14 +128,15 @@
     </header>
 
     <main class="contenedor-menu">
-        <img src="https://lh3.googleusercontent.com/d/1aVXKnnau_23w7lmFni5XMzOHcsJHB02H" alt="Menú Octarion" class="imagen-fondo">
+        <img src="menu.jpg" alt="Menú Octarion" class="imagen-fondo">
 
-        <a href="registro.html" class="zona-interactiva zona-arcade" title="Ver Registros Civiles"></a>
-        <a href="seccion-roja.html" class="zona-interactiva zona-cartel-dreamtopia" title="Entrar a la Sección Roja"></a>
-        <a href="sadinux87.html" class="zona-interactiva zona-escritorio" title="Sadinux87"></a>
-        <a href="marrie.html" class="zona-interactiva zona-gorro" title="Marrie"></a>
-        <a href="mapa.html" class="zona-interactiva zona-mapa" title="Mapa"></a>
-        <a href="icytv.html" class="zona-interactiva zona-puerta" title="IcyTv"></a>
+        <a href="seccion-roja.html" class="zona-interactiva zona-1-dreamtopia" title="Sala Roja"></a>
+        <a href="registro.html" class="zona-interactiva zona-2-registro" title="Registros"></a>
+        <a href="marrie.html" class="zona-interactiva zona-3-marrie" title="Marrie"></a>
+        <a href="sadinux87.html" class="zona-interactiva zona-4-sadinux" title="Sadinux87"></a>
+        <a href="char.html" class="zona-interactiva zona-5-char" title="Char"></a>
+        <a href="icytv.html" class="zona-interactiva zona-6-icytv" title="IcyTv"></a>
+        <a href="mapa.html" class="zona-interactiva zona-7-mapa" title="Mapa"></a>
     </main>
 
 </body>
