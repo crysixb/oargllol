@@ -167,8 +167,8 @@
             transition: transform 0.1s ease, left 0.1s linear, top 0.1s linear;
         }
 
-        #personajeRet {
-            width: 50px;
+        #objetoInteractivo {
+            width: 40px;
             height: auto;
             bottom: 30px;
             right: 40px;
@@ -320,9 +320,9 @@
                 </div>
                 <div class="ventana-cuerpo" id="zonaJuego">
                     <img src="Hana.png" id="personajeHana" class="sprite" alt="Hana">
-                    <img src="ret.png" id="personajeRet" class="sprite" alt="Ret">
+                    <img src="ball.png" id="objetoInteractivo" class="sprite" alt="Ball">
                     
-                    <div id="cuadroDialogo" class="cuadro-dialogo"><b>Ret:</b> Miau</div>
+                    <div id="cuadroDialogo" class="cuadro-dialogo"></div>
 
                     <div id="dpad" class="dpad-contenedor">
                         <div class="dpad-btn btn-arriba" data-dir="up">▲</div>
@@ -380,7 +380,7 @@
 
         const ventana = document.getElementById("ventanaHana");
         const hana = document.getElementById("personajeHana");
-        const ret = document.getElementById("personajeRet");
+        const objetoObj = document.getElementById("objetoInteractivo");
         const dialogo = document.getElementById("cuadroDialogo");
         const zonaJuego = document.getElementById("zonaJuego");
         const dpad = document.getElementById("dpad");
@@ -391,6 +391,7 @@
         const velocidad = 15; 
         let ventanaAbierta = false;
         let esMovil = false;
+        let esMundoAlterno = false;
 
         window.addEventListener('touchstart', function detectTouch() {
             esMovil = true;
@@ -472,20 +473,33 @@
 
         function ejecutarInteraccion() {
             if (verificarCercania()) {
+                if (!esMundoAlterno) {
+                    hana.src = "haneaf.png";
+                    zonaJuego.style.backgroundImage = "url('fondo2.jpg')";
+                    objetoObj.src = "hanaworld.png";
+                    dialogo.innerHTML = "<b>Sistema:</b> El entorno se ha distorsionado...";
+                    esMundoAlterno = true;
+                } else {
+                    hana.src = "Hana.png";
+                    zonaJuego.style.backgroundImage = "url('fondo.png')";
+                    objetoObj.src = "ball.png";
+                    dialogo.innerHTML = "<b>Sistema:</b> Todo ha vuelto a la normalidad.";
+                    esMundoAlterno = false;
+                }
                 dialogo.style.display = "block";
             }
         }
 
         function verificarCercania() {
             const rectHana = hana.getBoundingClientRect();
-            const rectRet = ret.getBoundingClientRect();
+            const rectObj = objetoObj.getBoundingClientRect();
 
             const centroHanaX = rectHana.left + rectHana.width / 2;
             const centroHanaY = rectHana.top + rectHana.height / 2;
-            const centroRetX = rectRet.left + rectRet.width / 2;
-            const centroRetY = rectRet.top + rectRet.height / 2;
+            const centroObjX = rectObj.left + rectObj.width / 2;
+            const centroObjY = rectObj.top + rectObj.height / 2;
 
-            const distancia = Math.sqrt(Math.pow(centroHanaX - centroRetX, 2) + Math.pow(centroHanaY - centroRetY, 2));
+            const distancia = Math.sqrt(Math.pow(centroHanaX - centroObjX, 2) + Math.pow(centroHanaY - centroObjY, 2));
             return distancia < 80;
         }
     </script>
