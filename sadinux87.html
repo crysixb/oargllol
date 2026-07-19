@@ -15,6 +15,9 @@
             overflow: hidden;
             color: #ffffff;
             user-select: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .efecto-crt {
@@ -47,26 +50,38 @@
             transition: opacity 0.5s ease-in-out;
         }
 
+        .contenedor-monitor {
+            position: relative;
+            max-width: 100%;
+            max-height: 100%;
+            aspect-ratio: 4 / 3; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         .imagen-escritorio {
             width: 100%;
             height: 100%;
             object-fit: contain;
+            display: block;
         }
 
         .icono-programa {
             position: absolute;
-            top: 50px;
-            left: 50px;
-            width: 90px;
+            top: 8%;
+            left: 5%;
+            width: 80px;
             display: flex;
             flex-direction: column;
             align-items: center;
             cursor: pointer;
             text-align: center;
+            z-index: 10;
         }
 
         .icono-programa img {
-            width: 60px;
+            width: 50px;
             height: auto;
             image-rendering: pixelated;
         }
@@ -87,8 +102,10 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 500px;
-            height: 400px;
+            width: 75%;
+            height: 70%;
+            max-width: 500px;
+            max-height: 400px;
             border: 3px solid #222;
             box-shadow: 0 0 15px rgba(0,0,0,0.5);
             flex-direction: column;
@@ -97,8 +114,13 @@
 
         @media (max-width: 600px) {
             .ventana-programa {
-                width: 95%;
-                height: 70%;
+                width: 90%;
+                height: 80%;
+            }
+            .contenedor-monitor {
+                width: 100%;
+                height: auto;
+                aspect-ratio: auto;
             }
         }
 
@@ -137,16 +159,16 @@
         }
 
         #personajeHana {
-            width: 50px;
+            width: 45px;
             height: auto;
             transition: transform 0.1s ease, left 0.1s linear, top 0.1s linear;
         }
 
         #personajeRet {
-            width: 55px;
+            width: 50px;
             height: auto;
-            bottom: 40px;
-            right: 50px;
+            bottom: 30px;
+            right: 40px;
         }
 
         .cuadro-dialogo {
@@ -155,10 +177,10 @@
             bottom: 10px;
             left: 10px;
             right: 10px;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.9);
             border: 2px solid #fff;
-            padding: 10px;
-            font-size: 14px;
+            padding: 8px;
+            font-size: 13px;
             color: #fff;
             font-family: monospace;
             border-radius: 4px;
@@ -168,8 +190,8 @@
         .dpad-contenedor {
             display: none;
             position: absolute;
-            bottom: 15px;
-            left: 15px;
+            bottom: 10px;
+            left: 10px;
             width: 90px;
             height: 90px;
             z-index: 5;
@@ -197,14 +219,14 @@
         .btn-accion-contenedor {
             display: none;
             position: absolute;
-            bottom: 30px;
-            right: 15px;
+            bottom: 25px;
+            right: 10px;
             z-index: 5;
         }
 
         .btn-accion {
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             background: rgba(255, 255, 255, 0.3);
             color: rgba(255, 255, 255, 0.8);
             border: 2px solid rgba(255, 255, 255, 0.5);
@@ -280,33 +302,35 @@
     <div class="efecto-crt"></div>
 
     <div id="escritorio" class="escritorio-sistema">
-        <img src="pantalla_inicio.png" alt="Escritorio Sadinux" class="imagen-escritorio">
+        <div class="contenedor-monitor">
+            <img src="pantalla_inicio.png" alt="Escritorio Sadinux" class="imagen-escritorio">
 
-        <div class="icono-programa" onclick="abrirVentana()">
-            <img src="icon.png" alt="Icono Hana Mind">
-            <span>Hana_mind.exe</span>
-        </div>
-
-        <div id="ventanaHana" class="ventana-programa">
-            <div class="ventana-header">
+            <div class="icono-programa" onclick="abrirVentana()">
+                <img src="icon.png" alt="Icono Hana Mind">
                 <span>Hana_mind.exe</span>
-                <button class="boton-cerrar" onclick="cerrarVentana()">X</button>
             </div>
-            <div class="ventana-cuerpo" id="zonaJuego">
-                <img src="Hana.png" id="personajeHana" class="sprite" alt="Hana">
-                <img src="ret.png" id="personajeRet" class="sprite" alt="Ret">
-                
-                <div id="cuadroDialogo" class="cuadro-dialogo"><b>Ret:</b> Miau</div>
 
-                <div id="dpad" class="dpad-contenedor">
-                    <div class="dpad-btn btn-arriba" data-dir="up">▲</div>
-                    <div class="dpad-btn btn-izquierda" data-dir="left">◀</div>
-                    <div class="dpad-btn btn-derecha" data-dir="right">▶</div>
-                    <div class="dpad-btn btn-abajo" data-dir="down">▼</div>
+            <div id="ventanaHana" class="ventana-programa">
+                <div class="ventana-header">
+                    <span>Hana_mind.exe</span>
+                    <button class="boton-cerrar" onclick="cerrarVentana()">X</button>
                 </div>
+                <div class="ventana-cuerpo" id="zonaJuego">
+                    <img src="Hana.png" id="personajeHana" class="sprite" alt="Hana">
+                    <img src="ret.png" id="personajeRet" class="sprite" alt="Ret">
+                    
+                    <div id="cuadroDialogo" class="cuadro-dialogo"><b>Ret:</b> Miau</div>
 
-                <div id="btnAccionCont" class="btn-accion-contenedor">
-                    <div class="btn-accion" id="btnInteractuar">●</div>
+                    <div id="dpad" class="dpad-contenedor">
+                        <div class="dpad-btn btn-arriba" data-dir="up">▲</div>
+                        <div class="dpad-btn btn-izquierda" data-dir="left">◀</div>
+                        <div class="dpad-btn btn-derecha" data-dir="right">▶</div>
+                        <div class="dpad-btn btn-abajo" data-dir="down">▼</div>
+                    </div>
+
+                    <div id="btnAccionCont" class="btn-accion-contenedor">
+                        <div class="btn-accion" id="btnInteractuar">●</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -401,8 +425,8 @@
         }
 
         function mover(direccion) {
-            const limiteX = zonaJuego.clientWidth - 50;
-            const limiteY = zonaJuego.clientHeight - 65;
+            const limiteX = zonaJuego.clientWidth - 45;
+            const limiteY = zonaJuego.clientHeight - 55;
 
             if (direccion === "up") hanaY = Math.max(0, hanaY - velocidad);
             if (direccion === "down") hanaY = Math.min(limiteY, hanaY + velocidad);
@@ -459,7 +483,7 @@
             const centroRetY = rectRet.top + rectRet.height / 2;
 
             const distancia = Math.sqrt(Math.pow(centroHanaX - centroRetX, 2) + Math.pow(centroHanaY - centroRetY, 2));
-            return distancia < 95;
+            return distancia < 80;
         }
     </script>
 </body>
