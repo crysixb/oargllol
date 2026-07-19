@@ -14,9 +14,11 @@
             font-family: monospace;
             overflow: hidden;
             color: #ffffff;
+            user-select: none;
         }
 
         .escritorio-sistema {
+            position: relative;
             width: 100%;
             height: 100%;
             display: flex;
@@ -28,6 +30,110 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
+        }
+
+        .icono-programa {
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            width: 90px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .icono-programa img {
+            width: 60px;
+            height: auto;
+            image-rendering: pixelated;
+        }
+
+        .icono-programa span {
+            font-size: 11px;
+            color: white;
+            margin-top: 5px;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 2px 4px;
+            border-radius: 3px;
+            word-break: break-all;
+        }
+
+        .ventana-programa {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 400px;
+            border: 3px solid #222;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .ventana-header {
+            background: linear-gradient(90deg, #0055ff, #00aaff);
+            padding: 5px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 12px;
+            color: white;
+        }
+
+        .boton-cerrar {
+            background: #ff5555;
+            border: 1px solid #aa0000;
+            color: white;
+            font-family: monospace;
+            cursor: pointer;
+            padding: 2px 6px;
+            font-size: 10px;
+        }
+
+        .ventana-cuerpo {
+            flex-grow: 1;
+            background-image: url('fondo.png');
+            background-size: auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sprite {
+            position: absolute;
+            image-rendering: pixelated;
+        }
+
+        #personajeHana {
+            width: 50px;
+            height: auto;
+            transition: transform 0.1s ease;
+        }
+
+        #personajeRet {
+            width: 55px;
+            height: auto;
+            bottom: 40px;
+            right: 50px;
+        }
+
+        .cuadro-dialogo {
+            display: none;
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.85);
+            border: 2px solid #fff;
+            padding: 10px;
+            font-size: 14px;
+            color: #fff;
+            font-family: monospace;
+            border-radius: 4px;
         }
 
         .pantalla-booteo {
@@ -44,6 +150,7 @@
             z-index: 9999;
             transition: opacity 1.5s ease-in-out;
             animation: encendidoCRT 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            pointer-events: none;
         }
 
         .logo-sadinux {
@@ -86,7 +193,6 @@
 
         .desvanecer-boot {
             opacity: 0;
-            pointer-events: none;
         }
     </style>
 </head>
@@ -94,6 +200,23 @@
 
     <div class="escritorio-sistema">
         <img src="pantalla_inicio.png" alt="Escritorio Sadinux" class="imagen-escritorio">
+
+        <div class="icono-programa" onclick="abrirVentana()">
+            <img src="icon.png" alt="Icono Hana Mind">
+            <span>Hana_mind.exe</span>
+        </div>
+
+        <div id="ventanaHana" class="ventana-programa">
+            <div class="ventana-header">
+                <span>Hana_mind.exe</span>
+                <button class="boton-cerrar" onclick="cerrarVentana()">X</button>
+            </div>
+            <div class="ventana-cuerpo" id="zonaJuego">
+                <img src="Hana.png" id="personajeHana" class="sprite" alt="Hana">
+                <img src="ret.png" id="personajeRet" class="sprite" alt="Ret">
+                <div id="cuadroDialogo" class="cuadro-dialogo"><b>Ret:</b> Miau</div>
+            </div>
+        </div>
     </div>
 
     <div id="capaBoot" class="pantalla-booteo">
@@ -132,7 +255,83 @@
         setTimeout(function() {
             document.getElementById("capaBoot").classList.add("desvanecer-boot");
         }, 7000);
-    </script>
 
+        const ventana = document.getElementById("ventanaHana");
+        const hana = document.getElementById("personajeHana");
+        const ret = document.getElementById("personajeRet");
+        const dialogo = document.getElementById("cuadroDialogo");
+        const zonaJuego = document.getElementById("zonaJuego");
+
+        let hanaX = 20;
+        let hanaY = 20;
+        const velocidad = 12; 
+        let ventanaAbierta = false;
+
+        function abrirVentana() {
+            ventana.style.display = "flex";
+            ventanaAbierta = true;
+            actualizarPosicionHana();
+            window.addEventListener("keydown", manejarTeclado);
+        }
+
+        function cerrarVentana() {
+            ventana.style.display = "none";
+            ventanaAbierta = false;
+            dialogo.style.display = "none";
+            window.removeEventListener("keydown", manejarTeclado);
+        }
+
+        function actualizarPosicionHana() {
+            hana.style.left = hanaX + "px";
+            hana.style.top = hanaY + "px";
+        }
+
+        function manejarTeclado(e) {
+            if (!ventanaAbierta) return;
+
+            const limiteX = zonaJuego.clientWidth - 50;
+            const limiteY = zonaJuego.clientHeight - 65;
+
+            if (e.key === "ArrowUp") {
+                hanaY = Math.max(0, hanaY - velocidad);
+                dialogo.style.display = "none"; 
+            }
+            if (e.key === "ArrowDown") {
+                hanaY = Math.min(limiteY, hanaY + velocidad);
+                dialogo.style.display = "none";
+            }
+            if (e.key === "ArrowLeft") {
+                hanaX = Math.max(0, hanaX - velocidad);
+                hana.style.transform = "scaleX(-1)";
+                dialogo.style.display = "none";
+            }
+            if (e.key === "ArrowRight") {
+                hanaX = Math.min(limiteX, hanaX + velocidad);
+                hana.style.transform = "scaleX(1)";
+                dialogo.style.display = "none";
+            }
+
+            actualizarPosicionHana();
+
+            if (e.key === "Enter") {
+                if (verificarCercania()) {
+                    dialogo.style.display = "block";
+                }
+            }
+        }
+
+        function verificarCercania() {
+            const rectHana = hana.getBoundingClientRect();
+            const rectRet = ret.getBoundingClientRect();
+
+            const centroHanaX = rectHana.left + rectHana.width / 2;
+            const centroHanaY = rectHana.top + rectHana.height / 2;
+            const centroRetX = rectRet.left + rectRet.width / 2;
+            const centroRetY = rectRet.top + rectRet.height / 2;
+
+            const distancia = Math.sqrt(Math.pow(centroHanaX - centroRetX, 2) + Math.pow(centroHanaY - centroRetY, 2));
+            return distancia < 85;
+        }
+    </script>
 </body>
 </html>
