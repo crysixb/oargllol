@@ -156,6 +156,7 @@ setTimeout(()=>{document.getElementById("capaBoot").classList.add("desvanecer-bo
 let esMovil=false;
 window.addEventListener("touchstart",function detectarTouch(){esMovil=true;if(ventanaHanaAbierta)mostrarControlesMovilesHana();if(ventanaClanAbierta)mostrarControlesClan();window.removeEventListener("touchstart",detectarTouch);},{passive:true});
 
+/* HANAMIND: lógica original conservada */
 const ventanaHana=document.getElementById("ventanaHana"),hana=document.getElementById("personajeHana"),objetoObj=document.getElementById("objetoInteractivo"),
 dialogoHana=document.getElementById("cuadroDialogoHana"),zonaJuegoHana=document.getElementById("zonaJuegoHana"),dpadHana=document.getElementById("dpadHana"),btnAccionContHana=document.getElementById("btnAccionContHana");
 let hanaX=20,hanaY=20;const velocidad=15;let ventanaHanaAbierta=false,esMundoAlterno=false;
@@ -170,6 +171,7 @@ document.getElementById("btnInteractuarHana").addEventListener("touchstart",e=>{
 function ejecutarInteraccionHana(){if(verificarCercaniaHana()){if(!esMundoAlterno){hana.src="haneaf.png";zonaJuegoHana.style.backgroundImage="url('fondo2.jpg')";objetoObj.src="hanaworld.png";dialogoHana.innerHTML="<b>Sistema:</b> El entorno se ha distorsionado...";esMundoAlterno=true;}else{hana.src="Hana.png";zonaJuegoHana.style.backgroundImage="url('fondo.png')";objetoObj.src="ball.png";dialogoHana.innerHTML="<b>Sistema:</b> Todo ha vuelto a la normalidad.";esMundoAlterno=false;}dialogoHana.style.display="block";}}
 function verificarCercaniaHana(){const a=hana.getBoundingClientRect(),b=objetoObj.getBoundingClientRect();return Math.hypot((a.left+a.width/2)-(b.left+b.width/2),(a.top+a.height/2)-(b.top+b.height/2))<80;}
 
+/* CLANKATH: motor de plataformas completo */
 const ventanaClan=document.getElementById("ventanaClan"),zonaClan=document.getElementById("zonaJuegoClan"),canvas=document.getElementById("juegoClanCanvas"),ctx=canvas.getContext("2d");
 const hudNivel=document.getElementById("hudNivel"),hudPersonaje=document.getElementById("hudPersonaje"),hudVidas=document.getElementById("hudVidas"),mensajeClan=document.getElementById("mensajeClan"),controlesClan=document.getElementById("controlesClan");
 const imgZaf=new Image(),imgRub=new Image(),imgFondo=new Image(),imgBun=new Image(),imgObis=new Image(),imgPupa=new Image();
@@ -210,6 +212,7 @@ function crearMundo(){
  const addP=(x,y,w,h=18)=>mundo.plataformas.push({x,y,w,h});
  if(def.tipo==="vertical"){
    addP(0,mundo.alto-24,mundo.ancho,24);
+   // Escalones alternados cada 78 px: el salto normal alcanza la siguiente plataforma.
    for(let i=0;i<19;i++){
      const y=mundo.alto-105-i*78;
      const side=i%2===0?35:Math.min(155,mundo.ancho-145);
@@ -233,6 +236,7 @@ function crearMundo(){
    if(etapa===3&&nivel===3){mundo.peligros=[];for(let x=260;x<mundo.ancho-100;x+=260)mundo.peligros.push({x,y:floorY-14,w:115,h:14,type:"lava"});mundo.enemigos.push({type:"fire",x:700,y:floorY-85,w:32,h:35,vx:-65,vy:0,alive:true,hp:2});}
    mundo.salida=mundo.ancho-70;
  }
+ // Las salidas siempre están al final, salvo la cima de la torre.
  if(def.tipo!=="vertical")mundo.salida=mundo.ancho-65;
  jugador=nuevoJugador(personajePermitido(),def.tipo==="vertical"?35:60,def.tipo==="vertical"?mundo.alto-105-(personajePermitido()==="zaf"?72:68):floorY-100);
  activo=jugador.char;camaraX=0;camaraY=0;jefeVida=def.jefe?5:0;temporizadorDisparo=1.3;estadoJuego="playing";
@@ -291,6 +295,7 @@ function accionClan(){
  if(estadoJuego==="ending"){estadoJuego="title";return;}
  if(estadoJuego==="gameover"){empezarJuego();return;}
  if(!jugador)return;
+ // Zaf lanza cubos; Rub dispara fueguitos. Los proyectiles del jugador no dañan al jugador.
  const rub=activo==="rub";
  const size=rub?18:24;
  mundo.proyectiles.push({x:jugador.x+jugador.w/2+jugador.face*(jugador.w/2+size/2),y:jugador.y+jugador.h*.48,w:size,h:size,vx:jugador.face*(rub?330:285),vy:rub?-25:0,type:rub?1:4,life:2.2,owner:"player",damage:rub?1:2});
@@ -306,7 +311,9 @@ function actualizar(dt){
  jugador.x+=jugador.vx*dt;
  if(def.tipo==="horizontal")jugador.x=Math.max(0,Math.min(mundo.ancho-jugador.w,jugador.x));
  jugador.vy+=GRAVEDAD*dt;jugador.y+=jugador.vy*dt;jugador.onGround=false;
+ // Colisiones con plataformas, aterrizando desde arriba.
  for(const p of mundo.plataformas){if(rects(jugador,p)&&jugador.vy>=0&&jugador.y+jugador.h-jugador.vy*dt<=p.y+8){jugador.y=p.y-jugador.h;jugador.vy=0;jugador.onGround=true;}}
+ // Enemigos patrullan y los pájaros vuelan de lado a lado.
  for(const e of mundo.enemigos){if(!e.alive)continue;
    if(e.type==="bird"){e.x+=e.vx*dt;if(e.x<20||e.x+e.w>mundo.ancho-20)e.vx*=-1;e.y+=Math.sin(performance.now()/250+e.x)*.35;}
    else if(e.type==="boss"){e.x+=e.vx*dt;if(e.x<80||e.x+e.w>mundo.ancho-50)e.vx*=-1;}
@@ -338,6 +345,7 @@ function actualizar(dt){
  for(const p of mundo.peligros){if(rects(jugador,p)){if(activo==="rub"&&etapa===1&&p.type==="spikes"){jugador.vy=-220;}else perderVida();}}
  for(const c of mundo.monedas){if(!c.taken&&Math.hypot(jugador.x+jugador.w/2-c.x,jugador.y+jugador.h/2-c.y)<27){c.taken=true;puntos+=10;}}
  if(jugador.y>mundo.alto+100||jugador.y>H()+250&&def.tipo!=="vertical")perderVida();
+ // En la torre, subir hasta la plataforma superior.
  if(def.tipo==="vertical"){camaraY=Math.max(0,Math.min(mundo.alto-H(),jugador.y-H()*.55));if(jugador.y<75&&jugador.x>mundo.ancho/2-100&&jugador.x<mundo.ancho/2+150){const boss=mundo.enemigos.find(e=>e.type==="boss"&&e.alive);if(!boss){siguienteNivel();return;}}}
  else {camaraX=Math.max(0,Math.min(mundo.ancho-W(),jugador.x-W()*.42));}
  if(def.tipo!=="vertical"&&jugador.x>mundo.salida){if(def.jefe&&mundo.enemigos.some(e=>e.type==="boss"&&e.alive)){jugador.x=mundo.salida-jugador.w;mostrarMensaje("¡Derrota al jefe antes de salir!",1000);}else{if(def.final){const boss=mundo.enemigos.find(e=>e.type==="boss"&&e.alive);if(boss){jugador.x=mundo.salida-jugador.w;mostrarMensaje("¡El jefe final sigue en pie! Acércate y pulsa Enter para atacar.",1200);}else siguienteNivel();}else siguienteNivel();}}
@@ -366,9 +374,10 @@ function dibujarClan(){
      ctx.fillStyle="#6e7890";ctx.fillRect(33,yy+52,30,4);ctx.fillRect(w-63,yy+52,30,4);
    }
  }
+ // Fondo parallax y estrellas/ruinas.
  for(let i=0;i<18;i++){let x=((i*137-cx*.25)% (w+100)+w+100)%(w+100);let y=(i*73)%Math.max(100,h);ctx.fillStyle=etapa===3?"#5d2935":"rgba(220,240,255,.15)";ctx.fillRect(x,y,3,3);}
  if(imgFondo.complete&&imgFondo.naturalWidth){ctx.save();ctx.globalAlpha=.14;ctx.drawImage(imgFondo,0,0,w,h);ctx.restore();}
- // lava
+ // Pozos y lava.
  if(def.tipo==="horizontal"){
    const floorY=h-45;
    ctx.fillStyle=def.sub;ctx.fillRect(0,floorY,w,100);
@@ -379,20 +388,22 @@ function dibujarClan(){
    }
  }
  for(const p of mundo.plataformas){const x=p.x-cx,y=p.y-cy;if(x+p.w<0||x>w||y>h||y+p.h<0)continue;ctx.fillStyle=def.tipo==="vertical"?"#6b7182":def.sub;ctx.fillRect(x,y,p.w,p.h);ctx.fillStyle=def.tipo==="vertical"?"#b8c0d1":(etapa===3?"#c65b4c":"#b8c7a2");ctx.fillRect(x,y,p.w,Math.min(4,p.h));ctx.fillStyle="rgba(0,0,0,.25)";for(let k=8;k<p.w;k+=24)ctx.fillRect(x+k,y+5,3,3);}
- // Monedas teamo kath aver si ves esto amor orale teamo komo le hiciste para ver esto
+ // Monedas
  for(const c of mundo.monedas){if(c.taken)continue;ctx.fillStyle="#ffd94a";ctx.beginPath();ctx.arc(c.x-cx,c.y-cy,7,0,Math.PI*2);ctx.fill();ctx.strokeStyle="#fff3a0";ctx.stroke();}
- // Salida looool xd
+ // Salida
  if(def.tipo==="horizontal"){ctx.fillStyle="#fff";ctx.fillRect(mundo.salida-cx,h-125,5,80);ctx.fillStyle="#52f59c";ctx.beginPath();ctx.moveTo(mundo.salida-cx+5,h-125);ctx.lineTo(mundo.salida-cx+42,h-111);ctx.lineTo(mundo.salida-cx+5,h-97);ctx.fill();}
  else {ctx.fillStyle="#7cf";ctx.fillRect(mundo.ancho/2-cx-18,40-cy,80,8);ctx.fillStyle="#fff";ctx.fillText("CIMA",mundo.ancho/2-cx-15,33-cy);}
- // malos 
+ // Enemigos
  for(const e of mundo.enemigos){if(!e.alive)continue;const x=e.x-cx,y=e.y-cy;if(x+e.w<0||x>w||y+e.h<0||y>h)continue;
    const imgEnemigo=etapa===1?imgBun:etapa===2?imgObis:imgPupa;
+   // Solo los jefes usan el arte de cada etapa; los enemigos pequeños conservan su aspecto original.
    if(e.type==="boss"&&imgEnemigo.complete&&imgEnemigo.naturalWidth){ctx.drawImage(imgEnemigo,x,y,e.w,e.h);}
    else if(e.type==="bird"){ctx.fillStyle="#e8e6f4";ctx.beginPath();ctx.ellipse(x+e.w/2,y+e.h/2,e.w/2,e.h/3,0,0,Math.PI*2);ctx.fill();ctx.fillStyle="#6b91d8";ctx.beginPath();ctx.moveTo(x+8,y+12);ctx.lineTo(x-7,y+3);ctx.lineTo(x+12,y+18);ctx.fill();ctx.fillStyle="#ffca54";ctx.fillRect(x+e.w-4,y+10,7,4);}
    else if(e.type==="boss"){ctx.fillStyle=etapa===3?"#9e253c":"#4d2c78";ctx.fillRect(x,y,e.w,e.h);ctx.fillStyle="#ff4040";ctx.fillRect(x+9,y+14,8,7);ctx.fillRect(x+e.w-17,y+14,8,7);ctx.fillStyle="#111";ctx.fillRect(x+12,y+34,e.w-24,5);}
    else {ctx.fillStyle=e.type==="fire"?"#ff6b20":e.type==="block"?"#927a57":"#d44b69";ctx.fillRect(x,y,e.w,e.h);ctx.fillStyle="#fff";ctx.fillRect(x+5,y+8,5,5);ctx.fillRect(x+e.w-10,y+8,5,5);}
    if(e.type==="boss"){ctx.fillStyle="#fff";ctx.fillRect(x+4,y-8,e.w-8,4);ctx.fillStyle="#f44";ctx.fillRect(x+4,y-8,(e.w-8)*Math.max(0,(e.hp||1)/5),4);}
  }
+ // Proyectiles: fuego (stage 1), esfera mágica (stage 2), veneno (stage 3).
  for(const pr of mundo.proyectiles){const x=pr.x-cx,y=pr.y-cy;
    if(pr.owner==="player"&&pr.type===4){ctx.fillStyle="#8b6b45";ctx.fillRect(x-pr.w/2,y-pr.h/2,pr.w,pr.h);ctx.strokeStyle="#d9c39a";ctx.lineWidth=2;ctx.strokeRect(x-pr.w/2,y-pr.h/2,pr.w,pr.h);}
    else if(pr.owner==="player"){ctx.fillStyle="#ff642e";ctx.beginPath();ctx.moveTo(x,y-pr.h/2);ctx.lineTo(x+pr.w/2,y+pr.h/2);ctx.lineTo(x-pr.w/2,y+pr.h/2);ctx.closePath();ctx.fill();ctx.fillStyle="#ffd45c";ctx.fillRect(x-2,y,5,5);}
@@ -400,6 +411,7 @@ function dibujarClan(){
    else if(pr.type===2){ctx.fillStyle="#a78bfa";ctx.beginPath();ctx.arc(x,y,pr.w/2,0,Math.PI*2);ctx.fill();ctx.fillStyle="#f3e8ff";ctx.fillRect(x-2,y-2,5,5);}
    else {ctx.fillStyle="#6bd34c";ctx.beginPath();ctx.ellipse(x,y,pr.w/2,pr.h/2,performance.now()/200,0,Math.PI*2);ctx.fill();ctx.fillStyle="#d7ff9b";ctx.fillRect(x-2,y-2,4,4);}
  }
+ // Personaje visible usando recursos del usuario, con fallback si falta la imagen.
  const px=jugador.x-cx,py=jugador.y-cy;
  if(!(invulnerable>0&&Math.floor(performance.now()/90)%2===0)){
    const im=jugador.char==="zaf"?imgZaf:imgRub;
@@ -419,6 +431,7 @@ function dibujarTitulo(w,h,titulo){
  lines.forEach((s,i)=>ctx.fillText(s,w/2,h*.49+i*20));
  ctx.textAlign="left";
 }
+// Controles táctiles: mantener izquierda/derecha y pulsar salto/acción/cambio.
 document.querySelectorAll("[data-hold]").forEach(b=>{
  const key=b.dataset.hold,down=e=>{e.preventDefault();if(key==="jump")saltar();else teclas[key]=true;},up=e=>{e.preventDefault();if(key!=="jump")teclas[key]=false;};
  b.addEventListener("pointerdown",down);b.addEventListener("pointerup",up);b.addEventListener("pointercancel",up);b.addEventListener("pointerleave",up);
